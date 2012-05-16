@@ -79,7 +79,6 @@ int main() {
  r2.ur.x=6;
  r2.ur.y=2;
  
- printf("prostokat \n");
  int ilosc = ptinrectangles("prrr", p, r, r1, r2);
  
  if(ilosc)
