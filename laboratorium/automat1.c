@@ -2,16 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* wyswietlenie w postaci heksadecymalnej - uzywalem do debugowania*/
-void print_mem(char *ptr, int len)
-{
-  int i=0;
-  
-  for (i=0; i<len; i++)
-    printf("%02x ", *(ptr+i));
-  printf("\n");    
-}
-
 /* wyswietlanie w postaci charow*/
 void print_char(char *ptr, int len)
 {
