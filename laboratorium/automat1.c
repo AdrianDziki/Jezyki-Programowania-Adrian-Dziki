@@ -8,7 +8,7 @@ void print_char(char *ptr, int len)
   int i=0;
   
   for (i=0; i<len; i++)
-    printf("%c ", *(ptr+i));
+    printf("%c", *(ptr+i));
   printf("\n");    
 }
 
