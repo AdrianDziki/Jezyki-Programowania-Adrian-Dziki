@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 /* sprawdzenie dlugosci pliku*/
-int file_length(FILE *f)
+int dlugosc_pliku(FILE *f)
 {
 	
 	int pos;
@@ -15,28 +15,6 @@ int file_length(FILE *f)
 	fseek (f, pos, SEEK_SET);
 	
 	return end;
-}
-
-/* sprawdzenie ile linii w pliku - dzieki temu bede wiedzial ile slow, ale w sumie tego pozniej nawet nie uzylem*/
-
-int ile_linii(FILE *f)
-{
-	int lines=0;
-	char c;
-
-	/*zapamietac pozycje na ktorej byl uchwyt do pliku*/
-	int pos = ftell (f);
-	
-	while((c = fgetc(f)) != EOF)
-	{
-		if(c == '\n')
-			lines++;
-	}
-		
-	/*ustawic spowrotem na ta sama pozycje*/
-	fseek (f, pos, SEEK_SET);
-	
-	return lines;
 }
 
 /*drukowanie imiona az do znaku nowej linii*/
@@ -58,20 +36,20 @@ void przeszukiwanie(FILE *bibl, char *prefiks)
 	char *b=NULL;
 	char c;
 	int i=0;
-	int pre_len=0;
+	int prefiks_dlugosc=0;
 	
 
 	/* najpierw musze zobaczyc ile ten plik ma wielkosci*/
-	int total_len = file_length(bibl);
+	int cala_dlugosc = dlugosc_pliku(bibl);
 	
 	
-	b = (char *)malloc(total_len); /* alokuje */
-	memset(b, 0x00, total_len);
+	b = (char *)malloc(cala_dlugosc); /* alokuje */
+	memset(b, 0x00, cala_dlugosc);
 	
 	if(b!=NULL)
 	{	
 		
-		/* wczytujemy plik do stworzonego bufora i kazde imie konczymy znakiem konca stringu*/
+		/* wczytujemy plik i kazde imie konczymy znakiem konca stringu*/
 		do {
 			c = fgetc (bibl);				
 				b[i] = c; 
@@ -80,24 +58,22 @@ void przeszukiwanie(FILE *bibl, char *prefiks)
 	}	
 	
 	/* sprawdzamy dlugosc prefiksu*/
-	pre_len = strlen(prefiks);
+	prefiks_dlugosc = strlen(prefiks);
 
-	for(i=0; i<total_len; i++)
+	for(i=0; i<cala_dlugosc; i++)
 	{
-		/* funkcja memcmp - porownuje dwie zawartosci pamieci - jedna jest bufor pod adresem (b+i) a druga to co kryje prefiks*/
-		if (memcmp((b+i), prefiks, pre_len)==0) /* jak zwraca zero - to znaczy ze sie nie roznia*/
+		/* funkcja memcmp - porownuje dwie zawartosci pamieci - jedna jest pod adresem (b+i) a druga to co kryje prefiks*/
+		if (memcmp((b+i), prefiks, prefiks_dlugosc)==0) /* jak zwraca zero - to znaczy ze sie nie roznia*/
 		{
 			drukuj_imie(b+i); /* jak sie nie roznia to wypisuje imie*/
 		}
 		
 	}	
 	
-	/* zwalniamy bufor na koncy*/
+	/* zwalniamy obszar pamieci na koncy*/
 	free(b);
 	
-
 }
-
 
 int main(int argc, char* argv[])
 {
@@ -121,9 +97,8 @@ int main(int argc, char* argv[])
 	}
 	else
 	{
-		printf("Skladnia: program <biblioteka> <prefiks>\n");
+		printf("Skladnia: program <biblioteka> <prefiks z duzej litery>\n");
 	}	
 	
-
   return 0;
 }
