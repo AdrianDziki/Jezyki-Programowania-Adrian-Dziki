@@ -3,11 +3,11 @@
 #include <string.h>
 
 /* wyswietlanie w postaci charow*/
-void print_char(char *ptr, int len)
+void print_char(char *ptr, int dlugosc)
 {
   int i=0;
   
-  for (i=0; i<len; i++)
+  for (i=0; i<dlugosc; i++)
     printf("%c", *(ptr+i));
   printf("\n");    
 }
@@ -15,12 +15,12 @@ void print_char(char *ptr, int len)
 
 
 /* sprawdzam ile znakow, ktore mnie nie interesuja: spacja i tabulator*/
-int sprawdz_ile_znakow(char *ptr, int len)
+int sprawdz_ile_znakow(char *ptr, int dlugosc)
 {
   int i=0;
   int tmp=0;
   
-  for(i=0; i<len; i++)
+  for(i=0; i<dlugosc; i++)
   {
       switch(*(ptr+i))
       {
