@@ -6,7 +6,7 @@ FILE *plik1;
 
 
 /* sprawdzanie dlugosci pliku ktory otworzony ma wskaznik f*/
-int file_length(FILE *f)
+int dlugosc_pliku(FILE *f)
 {
 	int pos;	
 	int end;
@@ -19,11 +19,11 @@ int file_length(FILE *f)
 	return end; /* zwracam dlugosc*/
 }
 
-int replace(FILE *fp) 
+int zastap(FILE *fp) 
 {
 	char c;
 	int n=0;
-	int len=0;
+	int dlugosc=0;
 	char *b;
 	int i=0;
 	int osc=0, obc=0;
@@ -33,10 +33,10 @@ int replace(FILE *fp)
 	else
 	{
 		
-		len = file_length(fp); /* sprawdzam dlugosc pliku*/
+		dlugosc = dlugosc_pliku(fp); /* sprawdzam dlugosc pliku*/
 
-		b = (char *)malloc(len); /* alokuje pamiec na plik*/
-		memset(b, 0x00, len); /* czyszcze zaalokowamy bufor*/
+		b = (char *)malloc(dlugosc); /* alokuje pamiec na plik*/
+		memset(b, 0x00, dlugosc); /* czyszcze zaalokowana przestrzen w pamieci*/
 		
 		if(b !=NULL)	/* jezeli stworzyl sie bufor to moge na nim pracowac*/
 		{	
@@ -48,7 +48,7 @@ int replace(FILE *fp)
 			} while (c != EOF); /* czytam az sie skonczy plik*/
 		}	
 	
-		for(i=0;i<len;i++)
+		for(i=0;i<dlugosc;i++)
 		{
 			if(*(b+i)=='/' && *(b+i+1)=='*')      /* warunek na wykrycie poczatka duzego komentarza  */
 			{	
@@ -87,9 +87,9 @@ int replace(FILE *fp)
 		if (fnew==NULL) /* sprawdzamy czy udalo sie go stworzyc - brak miejsca na dysku moglby spowodowac trudnosc*/
 			printf("Nie mozna stworzyc pliku\n");		
 		
-		for(i=0;i<len;i++) /* wpisujemy tyle znaczkow ile bylo w pierwszym pliku*/
+		for(i=0;i<dlugosc;i++) /* wpisujemy tyle znaczkow ile bylo w pierwszym pliku*/
 		{
-			fprintf(fnew, "%c", *(b+i)); /* zrzucamy zawartosc bufora do pliku uzywajac fprintd*/
+			fprintf(fnew, "%c", *(b+i)); /* zrzucamy zawartosc pamieci do pliku uzywajac fprintd*/
 		}	
 		
 		fclose(fnew); /* zamykamy plik*/
@@ -112,7 +112,7 @@ if (argc == 2)
 	if (plik1==NULL) 
         printf("Nie mozna otworzyc pliku\n");
 
-	replace(plik1); /* wywolujemy nasza funkcje czyszczaca plik z komentarzy i zapisujaca wynik naszego dzialania w nowym pliku*/
+	zastap(plik1); /* wywolujemy nasza funkcje czyszczaca plik z komentarzy i zapisujaca wynik naszego dzialania w nowym pliku*/
 	
 	
 	fprintf(plik1, ""); 
