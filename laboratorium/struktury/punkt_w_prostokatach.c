@@ -1,7 +1,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#define ILOSC 10
+#define ILOSC 5
 
 struct point {
  int x;
