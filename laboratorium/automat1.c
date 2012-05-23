@@ -40,7 +40,7 @@ return tmp;
 void automat(char *out, char *in)
 {
   /* sprawdzam dlugosc wejscia*/
-  int len = strlen(in); 
+  int dlugosc = strlen(in); 
   /*moj indeks do wedowania po wejsciowej przestrzeni*/
   int i=0;
   /* moj indeks do wedrowania po wyjsciowej przestrzeni*/
@@ -49,7 +49,7 @@ void automat(char *out, char *in)
   /*zmienna co bedzie przechowywac stan */
   char state=0x00;;
   
-  while(i<len)
+  while(i<dlugosc)
   {
                
     state = in[i];
@@ -80,28 +80,28 @@ void zadanie_pierwsze(char *output, char *input)
 {
 
   /*sprawdzam dlugosc ciagu*/
-  int len = strlen(input); 
+  int dlugosc = strlen(input); 
 
   /*wyswietlam wejscie*/
-  print_char(input, len);
+  print_char(input, dlugosc);
 
   /* sprawdzam ile mam znakow nie bedacych ani spacja ani tabulatorem */
-  len = len - sprawdz_ile_znakow(input, len);  
+  dlugosc = dlugosc - sprawdz_ile_znakow(input, dlugosc);  
   
   /* obliczam ile bede potrzebowal miejsce wraz ze spacjami pomiedzy znakami*/
-  len = 2*len-1;
+  dlugosc = 2*dlugosc-1;
   
   /* alokuje pamiec na wynik dzialania automatu*/
-  output = (char*)malloc(len);
+  output = (char*)malloc(dlugosc);
   
   /*czyszcze ta przestrzen*/
-  memset(output, 0x00, len);
+  memset(output, 0x00, dlugosc);
 
   /*uruchamiami automat */
   automat(output, input);
   
   /*wyswietl wynik*/  
-  print_char(output, len);
+  print_char(output, dlugosc);
 
   /* zwolnij zaalokowana pamiec*/
   free(output);
