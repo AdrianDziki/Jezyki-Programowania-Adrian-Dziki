@@ -38,12 +38,12 @@ int zastap(FILE *fp)
 		b = (char *)malloc(dlugosc); /* alokuje pamiec na plik*/
 		memset(b, 0x00, dlugosc); /* czyszcze zaalokowana przestrzen w pamieci*/
 		
-		if(b !=NULL)	/* jezeli stworzyl sie bufor to moge na nim pracowac*/
+		if(b !=NULL)	/* jezeli stworzylo sie miejsce to moge na nim pracowac*/
 		{	
 			do {
 				c = fgetc (fp);	/* czytam znaczek z pliku i wstawiam go do zmiennej c, fgetc - po przeczytaniu znaczka - przeskakuje na nastepny w piku*/			
 				
-				b[i] = c; /* podstawiam wczytany znaczek do bufora. Moge podstawiac uzywajac notacji b[i] algo *(b+i) - obie wskazuja na to samo*/	
+				b[i] = c; 	
 				i++; /* przechodze do nastepnej lokalizacji */
 			} while (c != EOF); /* czytam az sie skonczy plik*/
 		}	
